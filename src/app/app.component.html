@@ -1,13 +1,19 @@
 <div class="container">
   <!-- adding custom event 'serverCreated' that calls the 'onServerAdded()' method -->
-  <app-cockpit (serverCreated)="onServerAdded($event)" (blueprintCreated)="onBlueprintAdded($event)"></app-cockpit>
+  <app-cockpit (serverCreated)="onServerAdded($event)" (bpCreatedAlias)="onBlueprintAdded($event)">
+  </app-cockpit>
   <hr>
   <div class="row">
     <div class="col-xs-12">
-      <!-- <app-server-element *ngFor="let serverElement of serverElements" [element]="serverElement"></app-server-element> -->
       <!--'element-alias' -> alias of 'element' in server-element.component.ts -->
       <!-- *ngFor loops through the 'serverElements' array in 'app.component.ts'and generates a list of type 'element' defined in 'server-element.component' template-->
-      <app-server-element *ngFor="let serverElement of serverElements" [element-alias]="serverElement">
+      <app-server-element *ngFor="let serverElement of serverElements" [element-alias]="serverElement"
+        [name]="serverElement.name">
+        <p>
+          <!-- rendering of 'element' object in paragraph -->
+          <strong *ngIf="serverElement.type === 'server'" style="color: red">{{ serverElement.content }}</strong>
+          <em *ngIf="serverElement.type === 'blueprint'">{{ serverElement.content }}</em>
+        </p>
       </app-server-element>
     </div>
   </div>
